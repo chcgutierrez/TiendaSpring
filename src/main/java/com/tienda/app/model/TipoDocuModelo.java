@@ -89,7 +89,6 @@ public class TipoDocuModelo implements Serializable {
 		super();
 	}
 
-
 	public TipoDocuModelo(Integer idTipoDoc, String tipoDoc, String descTipdoc, Boolean estado, Date fechaCon,
 			String usuario, String obser) {
 		super();
@@ -115,7 +114,6 @@ public class TipoDocuModelo implements Serializable {
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -163,7 +161,6 @@ public class TipoDocuModelo implements Serializable {
 			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
