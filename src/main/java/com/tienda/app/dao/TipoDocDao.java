@@ -45,7 +45,8 @@ public class TipoDocDao {
 
 	public TipoDocuModelo TraerTipoDoc(String TipoDoc) {
 
-		SimpleJdbcCall oDbCall = new SimpleJdbcCall(dbTemplate).withProcedureName(TipoDocProcedure.SP_TRAER_TIPODOC)
+		SimpleJdbcCall oDbCall = new SimpleJdbcCall(dbTemplate)
+				.withProcedureName(TipoDocProcedure.SP_TRAER_TIPODOC)
 				.returningResultSet("TraerTipoDoc", new TipoDocRowMapper());
 
 		SqlParameterSource oParametros = new MapSqlParameterSource()
