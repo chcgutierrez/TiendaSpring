@@ -2,12 +2,14 @@ package com.tienda.app.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -43,23 +45,22 @@ public class TipoDocDao {
 		}
 	}
 
-	public TipoDocuModelo TraerTipoDoc(String TipoDoc) {
-
+	public List<TipoDocuModelo> TraerTipoDoc(String TipoDoc) {
+		
 		SimpleJdbcCall oDbCall = new SimpleJdbcCall(dbTemplate)
 				.withProcedureName(TipoDocProcedure.SP_TRAER_TIPODOC)
+				.declareParameters(new SqlParameter(TipoDocProcedure.tipoDoc, Types.VARCHAR))
 				.returningResultSet("TraerTipoDoc", new TipoDocRowMapper());
 
-		SqlParameterSource oParametros = new MapSqlParameterSource()
-				.addValue(TipoDocProcedure.tipoDoc, TipoDoc);
-
-		Map<String, Object> out = oDbCall.execute(oParametros);
-		return (TipoDocuModelo) out.get("TraerTipoDoc");
+		Map<String, Object> oDbRes = oDbCall.execute(TipoDoc);
+		return (List<TipoDocuModelo>) oDbRes.get("TraerTipoDoc");
 
 	}
 
 	public List<TipoDocuModelo> MostrarTodos() {
 
-		SimpleJdbcCall oDbCall = new SimpleJdbcCall(dbTemplate).withProcedureName(TipoDocProcedure.SP_MOSTRAR_TIPODOC)
+		SimpleJdbcCall oDbCall = new SimpleJdbcCall(dbTemplate)
+				.withProcedureName(TipoDocProcedure.SP_MOSTRAR_TIPODOC)
 				.returningResultSet("MostrarTodos", new TipoDocRowMapper());
 
 		Map<String, Object> out = oDbCall.execute();
